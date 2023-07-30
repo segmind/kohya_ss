@@ -849,11 +849,13 @@ class Transformer2DModel(nn.Module):
 
     def set_use_memory_efficient_attention(self, xformers, mem_eff):
         for transformer in self.transformer_blocks:
-            transformer.set_use_memory_efficient_attention(xformers, mem_eff)
+            if transformer is not None:
+                transformer.set_use_memory_efficient_attention(xformers, mem_eff)
 
     def set_use_sdpa(self, sdpa):
         for transformer in self.transformer_blocks:
-            transformer.set_use_sdpa(sdpa)
+            if transformer is not None:
+                transformer.set_use_sdpa(sdpa)
 
     def forward(self, hidden_states, encoder_hidden_states=None, timestep=None, return_dict: bool = True):
         # 1. Input
@@ -1446,12 +1448,14 @@ class UNet2DConditionModel(nn.Module):
     def set_use_memory_efficient_attention(self, xformers: bool, mem_eff: bool) -> None:
         modules = self.down_blocks + [self.mid_block] + self.up_blocks
         for module in modules:
-            module.set_use_memory_efficient_attention(xformers, mem_eff)
+            if module is not None:
+                module.set_use_memory_efficient_attention(xformers, mem_eff)
 
     def set_use_sdpa(self, sdpa: bool) -> None:
         modules = self.down_blocks + [self.mid_block] + self.up_blocks
         for module in modules:
-            module.set_use_sdpa(sdpa)
+            if module is not None:
+                module.set_use_sdpa(sdpa)
 
     def set_gradient_checkpointing(self, value=False):
         modules = self.down_blocks + [self.mid_block] + self.up_blocks

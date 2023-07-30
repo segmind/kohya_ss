@@ -377,6 +377,7 @@ def open_configuration(
 def train_model(
     headless,
     print_only,
+    token,
     pretrained_model_name_or_path,
     v2,
     v_parameterization,
@@ -897,6 +898,8 @@ def train_model(
         
     if full_bf16:
         run_cmd += f' --full_bf16'
+    if token != '':
+        run_cmd += f' --token {token}'
 
     run_cmd += run_cmd_training(
         learning_rate=learning_rate,

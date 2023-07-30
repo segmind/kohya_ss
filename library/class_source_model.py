@@ -52,6 +52,12 @@ class SourceModel:
                     value='safetensors',
                 )
             with gr.Row():
+                self.token = gr.Textbox(
+                    label='Huggingface Token',
+                    placeholder='Huggingface Token',
+                    value='',
+                    visible=True)
+
                 self.pretrained_model_name_or_path = gr.Textbox(
                     label='Pretrained model name or path',
                     placeholder='enter the path to custom model or name of pretrained model',
@@ -93,6 +99,7 @@ class SourceModel:
                 set_pretrained_model_name_or_path_input,
                 inputs=[
                     self.model_list,
+                    self.token,
                     self.pretrained_model_name_or_path,
                     self.pretrained_model_name_or_path_file,
                     self.pretrained_model_name_or_path_folder,
@@ -102,6 +109,7 @@ class SourceModel:
                 ],
                 outputs=[
                     self.model_list,
+                    self.token,
                     self.pretrained_model_name_or_path,
                     self.pretrained_model_name_or_path_file,
                     self.pretrained_model_name_or_path_folder,

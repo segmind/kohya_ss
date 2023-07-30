@@ -465,7 +465,7 @@ def save_inference_file(output_dir, v2, v_parameterization, output_name):
 
 
 def set_pretrained_model_name_or_path_input(
-    model_list, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
+    model_list, token, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
 ):
     # Check if the given model_list is in the list of SDXL models
     if str(model_list) in SDXL_MODELS:
@@ -476,7 +476,7 @@ def set_pretrained_model_name_or_path_input(
         pretrained_model_name_or_path = gr.Textbox.update(value=str(model_list), visible=False)
         pretrained_model_name_or_path_file = gr.Button.update(visible=False)
         pretrained_model_name_or_path_folder = gr.Button.update(visible=False)
-        return model_list, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
+        return model_list, token, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
 
     # Check if the given model_list is in the list of V2 base models
     if str(model_list) in V2_BASE_MODELS:
@@ -487,7 +487,7 @@ def set_pretrained_model_name_or_path_input(
         pretrained_model_name_or_path = gr.Textbox.update(value=str(model_list), visible=False)
         pretrained_model_name_or_path_file = gr.Button.update(visible=False)
         pretrained_model_name_or_path_folder = gr.Button.update(visible=False)
-        return model_list, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
+        return model_list, token, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
 
     # Check if the given model_list is in the list of V parameterization models
     if str(model_list) in V_PARAMETERIZATION_MODELS:
@@ -500,7 +500,7 @@ def set_pretrained_model_name_or_path_input(
         pretrained_model_name_or_path = gr.Textbox.update(value=str(model_list), visible=False)
         pretrained_model_name_or_path_file = gr.Button.update(visible=False)
         pretrained_model_name_or_path_folder = gr.Button.update(visible=False)
-        return model_list, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
+        return model_list, token, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
 
     # Check if the given model_list is in the list of V1 models
     if str(model_list) in V1_MODELS:
@@ -513,7 +513,7 @@ def set_pretrained_model_name_or_path_input(
         pretrained_model_name_or_path = gr.Textbox.update(value=str(model_list), visible=False)
         pretrained_model_name_or_path_file = gr.Button.update(visible=False)
         pretrained_model_name_or_path_folder = gr.Button.update(visible=False)
-        return model_list, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
+        return model_list, token, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
 
     # Check if the model_list is set to 'custom'
     if model_list == 'custom':
@@ -523,7 +523,7 @@ def set_pretrained_model_name_or_path_input(
         pretrained_model_name_or_path = gr.Textbox.update(visible=True)
         pretrained_model_name_or_path_file = gr.Button.update(visible=True)
         pretrained_model_name_or_path_folder = gr.Button.update(visible=True)
-        return model_list, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
+        return model_list, token, pretrained_model_name_or_path, pretrained_model_name_or_path_file, pretrained_model_name_or_path_folder, v2, v_parameterization, sdxl
 
 
 ###

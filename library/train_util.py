@@ -69,6 +69,9 @@ import library.huggingface_util as huggingface_util
 # from library.hypernetwork import replace_attentions_for_hypernetwork
 from library.original_unet import UNet2DConditionModel
 
+#Distillation
+from library.BKDSM.pipe import prepare_unet
+
 # Tokenizer: checkpointから読み込むのではなくあらかじめ提供されているものを使う
 TOKENIZER_PATH = "openai/clip-vit-large-patch14"
 V2_STABLE_DIFFUSION_PATH = "stabilityai/stable-diffusion-2"  # ここからtokenizerだけ使う v2とv2.1はtokenizer仕様は同じ
@@ -3593,7 +3596,10 @@ def _load_target_model(args: argparse.Namespace, weight_dtype, device="cpu", une
         # Diffusers model is loaded to CPU
         print(f"load Diffusers pretrained models: {name_or_path}")
         try:
-            pipe = StableDiffusionPipeline.from_pretrained(name_or_path, tokenizer=None, safety_checker=None)
+            if args.token != '':
+                pipe = StableDiffusionPipeline.from_pretrained(name_or_path, tokenizer=None, safety_checker=None, use_auth_token=args.token)
+            else:
+                pipe = StableDiffusionPipeline.from_pretrained(name_or_path, tokenizer=None, safety_checker=None)
         except EnvironmentError as ex:
             print(
                 f"model is not found as a file or in Hugging Face, perhaps file name is wrong? / 指定したモデル名のファイル、またはHugging Faceのモデルが見つかりません。ファイル名が誤っているかもしれません: {name_or_path}"
@@ -3614,6 +3620,12 @@ def _load_target_model(args: argparse.Namespace, weight_dtype, device="cpu", une
             unet.config.use_linear_projection,
             unet.config.upcast_attention,
         )
+
+        if args.distill:
+            distillations = ['tiny', 'base']
+            if args.distill in distillations:
+                prepare_unet(original_unet, args.distill)
+
         original_unet.load_state_dict(unet.state_dict())
         unet = original_unet
         print("U-Net converted to original U-Net")

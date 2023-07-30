@@ -127,7 +127,8 @@ def train(args):
         # gets the message
         def fn_recursive_set_mem_eff(module: torch.nn.Module):
             if hasattr(module, "set_use_memory_efficient_attention_xformers"):
-                module.set_use_memory_efficient_attention_xformers(valid)
+                if module is not None:
+                    module.set_use_memory_efficient_attention_xformers(valid)
 
             for child in module.children():
                 fn_recursive_set_mem_eff(child)
